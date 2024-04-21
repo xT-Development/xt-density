@@ -8,4 +8,7 @@ description 'GlobalState Live Density Management | xT Development'
 shared_scripts { '@ox_lib/init.lua', 'shared.lua' }
 client_scripts { 'client/*.lua' }
 server_scripts { 'server/*.lua' }
-files { 'configs/*.lua' }
+
+data_file 'FIVEM_LOVES_YOU_341B23A2F0E0F131' 'popgroups.ymt'
+
+files { 'popgroups.ymt', 'configs/*.lua' }
