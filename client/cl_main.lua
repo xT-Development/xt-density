@@ -7,6 +7,9 @@ local SetVehicleDensityMultiplierThisFrame =        SetVehicleDensityMultiplierT
 local SetRandomVehicleDensityMultiplierThisFrame =  SetRandomVehicleDensityMultiplierThisFrame
 local SetPedDensityMultiplierThisFrame =            SetPedDensityMultiplierThisFrame
 local SetScenarioPedDensityMultiplierThisFrame =    SetScenarioPedDensityMultiplierThisFrame
+local SetScenarioTypeEnabled =                      SetScenarioTypeEnabled
+local SetVehicleModelIsSuppressed =                 SetVehicleModelIsSuppressed
+local SetScenarioGroupEnabled =                     SetScenarioGroupEnabled
 
 CreateThread(function()
     for x = 1, #config.removeVehiclesFromGeneratorsInArea do
@@ -36,3 +39,21 @@ CreateThread(function()
         Wait(0)
     end
 end)
+
+-- Credit: https://github.com/Qbox-project/qbx_smallresources
+if config.blacklisted.enableBlacklist then
+    CreateThread(function()
+        while true do
+            for _, sctyp in next, config.blacklisted.scenarioTypes do
+                SetScenarioTypeEnabled(sctyp, false)
+            end
+            for _, scmdl in next, config.blacklisted.suppressedModels do
+                SetVehicleModelIsSuppressed(joaat(scmdl), true)
+            end
+            for _, scgrp in next, config.blacklisted.scenarioGroups do
+                SetScenarioGroupEnabled(scgrp, false)
+            end
+            Wait(10000)
+        end
+    end)
+end
