@@ -10,8 +10,10 @@ return {
         { x1 = 1854.82, y1 = 3679.4, z1 = 33.82, x2 = 1854.82, y2 = 3679.4, z2 = 33.82 },               -- Sandy PD
         { x1 = -724.46, y1 = -1444.03, z1 = 5.0, x2 = -724.46, y2 = -1444.03, z2 = 5.0 },               -- Remove Choppers
     },
+
+    -- Credit: https://github.com/Qbox-project/qbx_smallresources
     blacklisted = {                                 -- Add blacklisted scenarios, vehicle models, and scenario groups
-        enableBlacklist = false,                    -- Enable/disable blacklisting thread. qb/qbx-smallresources already has this thread
+        enableBlacklist = true,                     -- Enable/disable blacklisting thread. qb/qbx-smallresources already has this thread
         scenarioTypes = {
             'WORLD_VEHICLE_AMBULANCE',
             'WORLD_VEHICLE_FIRE_TRUCK',

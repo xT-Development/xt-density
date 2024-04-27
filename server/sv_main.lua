@@ -2,15 +2,6 @@ local lib = lib
 local globalState = GlobalState
 local config = require 'configs.server'
 
-globalState.disableDensity = globalState.disableDensity or false
-globalState.density = {
-    ['parked'] = config.defaultValues['parked'],
-    ['vehicle'] = config.defaultValues['vehicle'],
-    ['peds'] = config.defaultValues['peds'],
-    ['scenario'] = config.defaultValues['scenario'],
-    ['multiplier'] = config.defaultValues['multiplier']
-}
-
 -- Sets Density, Returns Bool --
 local function setDensity(type, amount)
     local newStates = {}
@@ -55,3 +46,13 @@ lib.addCommand(config.commandName, {
 }, function(source, args, raw)
     TriggerClientEvent('xt-density:client:densityMenu', source)
 end)
+
+if config.blacklisted.enableBlacklist then
+    AddEventHandler('entityCreating', function(handle)
+        local entityModel = GetEntityModel(handle)
+
+        if config.blacklisted.vehicles[entityModel] or config.blacklisted.peds[entityModel] then
+            CancelEvent()
+        end
+    end)
+end
