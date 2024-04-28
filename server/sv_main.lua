@@ -15,6 +15,10 @@ local function setDensity(type, amount)
 
     globalState.density = newStates
 
+    if (globalState.density[type] == amount) then
+        setDensityKVP(type, amount)
+    end
+
     return (globalState.density[type] == amount)
 end
 
@@ -30,6 +34,10 @@ lib.callback.register('xt-density:server:toggleServerDensity', function(source)
     local setState = (not globalState.disableDensity)
 
     globalState.disableDensity = setState
+
+    if (globalState.disableDensity == setState) then
+        setDisableDensityKVP(setState)
+    end
 
     return (globalState.disableDensity == setState)
 end)

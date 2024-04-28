@@ -1,6 +1,17 @@
 local globalState = GlobalState
 local config = require 'configs.server'
 
+function setDensityKVP(type, amount)
+    SetResourceKvpFloatNoSync(('density_%s'):format(type), amount)
+    FlushResourceKvp()
+end
+
+function setDisableDensityKVP(bool)
+    local disableDensity = bool and 1 or 0
+    SetResourceKvpIntNoSync('density_disable', disableDensity)
+    FlushResourceKvp()
+end
+
 -- Init Density Values --
 local function initDensity()
     local newStates = {}
@@ -30,9 +41,9 @@ end
 AddEventHandler('onResourceStart', function(resource)
     if resource ~= GetCurrentResourceName() then return end
     initDensity()
- end)
+end)
 
- AddEventHandler('onResourceStop', function(resource)
-     if resource ~= GetCurrentResourceName() then return end
-     saveDensity()
- end)
+AddEventHandler('onResourceStop', function(resource)
+    if resource ~= GetCurrentResourceName() then return end
+    saveDensity()
+end)
