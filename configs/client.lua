@@ -11,6 +11,9 @@ return {
         { x1 = -724.46, y1 = -1444.03, z1 = 5.0, x2 = -724.46, y2 = -1444.03, z2 = 5.0 },               -- Remove Choppers
     },
 
+    pedPopulationBudget = 3,                -- https://docs.fivem.net/natives/?_0x8C95333CFC3340F3
+    vehiclePopulationBudget = 3,            -- https://docs.fivem.net/natives/?_0xCB9E1EB3BE2AF4E9
+
     -- Credit: https://github.com/Qbox-project/qbx_smallresources
     blacklisted = {                                 -- Add blacklisted scenarios, vehicle models, and scenario groups
         enableBlacklist = true,                     -- Enable/disable blacklisting thread. qb/qbx-smallresources already has this thread

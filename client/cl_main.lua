@@ -1,4 +1,4 @@
-local config = require 'configs.client'
+local config = lib.load('configs.client')
 
 local lib = lib
 local globalState = GlobalState
@@ -22,6 +22,9 @@ CreateThread(function()
             EnableDispatchService(i, false)
         end
     end
+
+    SetPedPopulationBudget(config.pedPopulationBudget)
+    SetVehiclePopulationBudget(config.vehiclePopulationBudget)
 
     while true do
         local parkedDensity =       globalState.disableDensity and 0 or globalState.density['parked']
