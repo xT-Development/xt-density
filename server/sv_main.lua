@@ -1,6 +1,6 @@
 local lib = lib
 local globalState = GlobalState
-local config = require 'configs.server'
+local config = lib.load('configs.server')
 
 -- Sets Density, Returns Bool --
 local function setDensity(type, amount)
@@ -59,7 +59,7 @@ if config.blacklisted.enableBlacklist then
     AddEventHandler('entityCreating', function(handle)
         local entityModel = GetEntityModel(handle)
 
-        if config.blacklisted.vehicles[entityModel] or config.blacklisted.peds[entityModel] then
+        if config.blacklisted.models[entityModel] then
             CancelEvent()
         end
     end)
