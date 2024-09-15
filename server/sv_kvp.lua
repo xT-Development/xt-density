@@ -1,5 +1,5 @@
 local globalState = GlobalState
-local config = require 'configs.server'
+local config = lib.load('configs.server')
 
 function setDensityKVP(type, amount)
     SetResourceKvpFloatNoSync(('density_%s'):format(type), amount)
