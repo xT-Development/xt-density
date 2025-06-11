@@ -1,14 +1,15 @@
 return {
     disableDispatchServices = true,                 -- Disable emergency service AIs from responding to downed NPCs
-    removeVehiclesFromGeneratorsInArea = {          -- Disable car generators in areas
-        { x1 = 335.2616, y1 = -1432.455, z1 = 46.51, x2 = 335.2616, y2 = -1432.455, z2 = 46.51 },       -- Central LS Medical Center
-        { x1 = 441.8465, y1 = -987.99, z1 = 30.68, x2 = 441.8465, y2 = -987.99, z2 = 30.68 },           -- MRPD
-        { x1 = 316.79, y1 = -592.36, z1 = 43.28, x2 = 316.79, y2 = -592.36, z2 = 43.28 },               -- Pillbox
-        { x1 = -2150.44, y1 = 3075.99, z1 = 32.8, x2 = -2150.44, y2 = 3075.99, z2 = 32.8 },             -- Military
-        { x1 = -1108.35, y1 = 4920.64, z1 = 217.2, x2 = -1108.35, y2 = 4920.64, z2 = 217.2 },           -- Nudist Colony
-        { x1 = -458.24, y1 = 6019.81, z1 = 31.34, x2 = -458.24, y2 = 6019.81, z2 = 31.34 },             -- Paleto PD
-        { x1 = 1854.82, y1 = 3679.4, z1 = 33.82, x2 = 1854.82, y2 = 3679.4, z2 = 33.82 },               -- Sandy PD
-        { x1 = -724.46, y1 = -1444.03, z1 = 5.0, x2 = -724.46, y2 = -1444.03, z2 = 5.0 },               -- Remove Choppers
+    removeVehiclesFromGeneratorsInArea = {          -- Disable car generators in areas. Coords is center, distance is subtracted and added to the coords values to create a bounding box
+        { coords = vec3(318.79,  -1481.95, 29.89),  distance = 300.0 },     -- Central LS Medical Center
+        { coords = vec3(441.8465, -987.99,  30.68), distance = 300.0 },     -- MRPD
+        { coords = vec3(316.79,   -592.36,  43.28), distance = 300.0 },     -- Pillbox
+        { coords = vec3(-2150.44, 3075.99,  32.8),  distance = 300.0 },     -- Military
+        { coords = vec3(-1108.35, 4920.64, 217.2),  distance = 300.0 },     -- Nudist Colony
+        { coords = vec3(-458.24,  6019.81, 31.34),  distance = 300.0 },     -- Paleto PD
+        { coords = vec3(1854.82,  3679.4,   33.82), distance = 300.0 },     -- Sandy PD
+        { coords = vec3(-724.46,  -1444.03, 5.0),   distance = 300.0 },     -- Remove Choppers
+        { coords = vec3(371.58,   -1270.57, 33.41), distance = 20.0 },      -- Blaze It
     },
 
     pedPopulationBudget = 3,                -- https://docs.fivem.net/natives/?_0x8C95333CFC3340F3
@@ -42,6 +43,8 @@ return {
             'AIRTUG',
             'RIPLEY',
             'BLIMP',
+            'BUZZARD',
+            'stromberg'
         },
 
         scenarioGroups = {

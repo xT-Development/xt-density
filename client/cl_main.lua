@@ -11,20 +11,35 @@ local SetScenarioTypeEnabled =                      SetScenarioTypeEnabled
 local SetVehicleModelIsSuppressed =                 SetVehicleModelIsSuppressed
 local SetScenarioGroupEnabled =                     SetScenarioGroupEnabled
 
-CreateThread(function()
-    for x = 1, #config.removeVehiclesFromGeneratorsInArea do
-        local coords = config.removeVehiclesFromGeneratorsInArea[x]
-        RemoveVehiclesFromGeneratorsInArea((coords.x1 - 300.0), (coords.y1 - 300.0), (coords.z1 - 300.0), (coords.x2 + 300.0), (coords.y2 + 300.0), (coords.z2 + 300.0))
-    end
-
-    if config.disableDispatchServices then
-        for i = 1, 15 do
-            EnableDispatchService(i, false)
+local function disableDispatch()
+    CreateThread(function()
+        if config.disableDispatchServices then
+            for i = 1, 15 do
+                EnableDispatchService(i, false)
+            end
         end
-    end
+    end)
+end
 
+local function removeVehicles()
+    CreateThread(function()
+        for x = 1, #config.removeVehiclesFromGeneratorsInArea do
+            local coords = config.removeVehiclesFromGeneratorsInArea[x].coords
+            local distance = config.removeVehiclesFromGeneratorsInArea[x].distance
+            RemoveVehiclesFromGeneratorsInArea((coords.x - distance), (coords.y - distance), (coords.z - distance), (coords.x + distance), (coords.y + distance), (coords.z + distance))
+        end
+    end)
+end
+
+local function setPopulationBudgets()
     SetPedPopulationBudget(config.pedPopulationBudget)
     SetVehiclePopulationBudget(config.vehiclePopulationBudget)
+end
+
+CreateThread(function()
+    disableDispatch()
+    removeVehicles()
+    setPopulationBudgets()
 
     while true do
         local parkedDensity =       globalState.disableDensity and 0 or globalState.density['parked']
