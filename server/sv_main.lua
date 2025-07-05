@@ -54,13 +54,3 @@ lib.addCommand(config.commandName, {
 }, function(source, args, raw)
     TriggerClientEvent('xt-density:client:densityMenu', source)
 end)
-
-if config.blacklisted.enableBlacklist then
-    AddEventHandler('entityCreating', function(handle)
-        local entityModel = GetEntityModel(handle)
-
-        if config.blacklisted.models[entityModel] then
-            CancelEvent()
-        end
-    end)
-end
