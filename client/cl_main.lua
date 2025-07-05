@@ -12,16 +12,18 @@ local SetVehicleModelIsSuppressed =                 SetVehicleModelIsSuppressed
 local SetScenarioGroupEnabled =                     SetScenarioGroupEnabled
 
 local function disableDispatch()
+    if not config.disableDispatchServices then return end
+
     CreateThread(function()
-        if config.disableDispatchServices then
-            for i = 1, 15 do
-                EnableDispatchService(i, false)
-            end
+        for i = 1, 15 do
+            EnableDispatchService(i, false)
         end
     end)
 end
 
 local function removeVehicles()
+    if not config.removeVehiclesFromGeneratorsInArea or not next(config.removeVehiclesFromGeneratorsInArea) then return end
+
     CreateThread(function()
         for x = 1, #config.removeVehiclesFromGeneratorsInArea do
             local coords = config.removeVehiclesFromGeneratorsInArea[x].coords
