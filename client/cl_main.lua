@@ -11,29 +11,46 @@ local SetScenarioTypeEnabled =                      SetScenarioTypeEnabled
 local SetVehicleModelIsSuppressed =                 SetVehicleModelIsSuppressed
 local SetScenarioGroupEnabled =                     SetScenarioGroupEnabled
 
+function debugTxt(text)
+    if not config.debug then return end
+
+    lib.print.info('^5[DENSITY]^0 '..text)
+end
+
 local function disableDispatch()
     if not config.disableDispatchServices then return end
+
+    debugTxt('Disabling dispatch services...')
 
     CreateThread(function()
         for i = 1, 15 do
             EnableDispatchService(i, false)
         end
+        SetCreateRandomCops(false)
+        SetCreateRandomCopsOnScenarios(false)
+        SetCreateRandomCopsNotOnScenarios(false)
+        SetDispatchCopsForPlayer(cache.playerId, false)
     end)
 end
 
 local function removeVehicles()
     if not config.removeVehiclesFromGeneratorsInArea or not next(config.removeVehiclesFromGeneratorsInArea) then return end
 
+    debugTxt('Removing vehicles from generators in areas...')
+
     CreateThread(function()
         for x = 1, #config.removeVehiclesFromGeneratorsInArea do
             local coords = config.removeVehiclesFromGeneratorsInArea[x].coords
             local distance = config.removeVehiclesFromGeneratorsInArea[x].distance
+
             RemoveVehiclesFromGeneratorsInArea((coords.x - distance), (coords.y - distance), (coords.z - distance), (coords.x + distance), (coords.y + distance), (coords.z + distance))
         end
     end)
 end
 
 local function setPopulationBudgets()
+    debugTxt('Setting population budgets...')
+
     SetPedPopulationBudget(config.pedPopulationBudget)
     SetVehiclePopulationBudget(config.vehiclePopulationBudget)
 end
@@ -42,6 +59,8 @@ CreateThread(function()
     disableDispatch()
     removeVehicles()
     setPopulationBudgets()
+
+    debugTxt('Applying density values...')
 
     while true do
         local parkedDensity =       globalState.disableDensity and 0 or globalState.density['parked']
@@ -64,15 +83,24 @@ end)
 if config.blacklisted.enableBlacklist then
     CreateThread(function()
         while true do
-            for _, sctyp in next, config.blacklisted.scenarioTypes do
-                SetScenarioTypeEnabled(sctyp, false)
+            if config.blacklisted.scenarioTypes and next(config.blacklisted.scenarioTypes) then
+                for x = 1, #config.blacklisted.scenarioTypes do
+                    SetScenarioTypeEnabled(config.blacklisted.scenarioTypes[x], false)
+                end
             end
-            for _, scmdl in next, config.blacklisted.suppressedModels do
-                SetVehicleModelIsSuppressed(joaat(scmdl), true)
+
+            if config.blacklisted.suppressedModels and next(config.blacklisted.suppressedModels) then
+                for x = 1, #config.blacklisted.suppressedModels do
+                    SetVehicleModelIsSuppressed(config.blacklisted.suppressedModels[x], true)
+                end
             end
-            for _, scgrp in next, config.blacklisted.scenarioGroups do
-                SetScenarioGroupEnabled(scgrp, false)
+
+            if config.blacklisted.scenarioGroups and next(config.blacklisted.scenarioGroups) then
+                for x = 1, #config.blacklisted.scenarioGroups do
+                    SetScenarioGroupEnabled(config.blacklisted.scenarioGroups[x], false)
+                end
             end
+
             Wait(10000)
         end
     end)

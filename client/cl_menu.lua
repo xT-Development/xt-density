@@ -18,6 +18,8 @@ local function handleDensityChange(type)
     local densityChanged = lib.callback.await('xt-density:server:setDensity', false, type, newInput)
     if densityChanged then
         lib.notify({ title = ('Density Set: %s'):format(newInput), type = 'success' })
+
+        debugTxt(('Set new %s density to %s'):format(type, newInput))
     end
 end
 
@@ -73,10 +75,13 @@ RegisterNetEvent('xt-density:client:densityMenu', function()
                     local densityChanged = lib.callback.await('xt-density:server:toggleServerDensity', false)
                     if densityChanged then
                         lib.notify({ title = 'Toggled Density', type = 'success' })
+
+                        debugTxt(('Toggled density to %s'):format(globalState.disableDensity and 'OFF' or 'ON'))
                     end
                 end
             },
         }
     })
+
     lib.showContext('density_menu')
 end)

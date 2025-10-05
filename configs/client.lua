@@ -1,4 +1,6 @@
 return {
+    debug = true,                                  -- Enable client debug messages
+
     disableDispatchServices = true,                 -- Disable emergency service AIs from responding to downed NPCs
     removeVehiclesFromGeneratorsInArea = {          -- Disable car generators in areas. Coords is center, distance is subtracted and added to the coords values to create a bounding box
         { coords = vec3(318.79,  -1481.95, 29.89),  distance = 300.0 },     -- Central LS Medical Center
