@@ -5,7 +5,7 @@ lua54 'yes'
 
 description 'GlobalState Live Density Management | xT Development'
 
-shared_scripts { '@ox_lib/init.lua', 'shared.lua' }
+shared_scripts { '@ox_lib/init.lua' }
 client_scripts { 'client/*.lua' }
 server_scripts { 'server/*.lua' }
 
