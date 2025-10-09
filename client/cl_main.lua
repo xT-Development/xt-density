@@ -2,14 +2,14 @@ local config = lib.load('configs.client')
 
 local lib = lib
 local globalState = GlobalState
-local SetParkedVehicleDensityMultiplierThisFrame =  SetParkedVehicleDensityMultiplierThisFrame
-local SetVehicleDensityMultiplierThisFrame =        SetVehicleDensityMultiplierThisFrame
-local SetRandomVehicleDensityMultiplierThisFrame =  SetRandomVehicleDensityMultiplierThisFrame
-local SetPedDensityMultiplierThisFrame =            SetPedDensityMultiplierThisFrame
-local SetScenarioPedDensityMultiplierThisFrame =    SetScenarioPedDensityMultiplierThisFrame
-local SetScenarioTypeEnabled =                      SetScenarioTypeEnabled
-local SetVehicleModelIsSuppressed =                 SetVehicleModelIsSuppressed
-local SetScenarioGroupEnabled =                     SetScenarioGroupEnabled
+local SetParkedVehicleDensityMultiplierThisFrame = SetParkedVehicleDensityMultiplierThisFrame
+local SetVehicleDensityMultiplierThisFrame = SetVehicleDensityMultiplierThisFrame
+local SetRandomVehicleDensityMultiplierThisFrame = SetRandomVehicleDensityMultiplierThisFrame
+local SetPedDensityMultiplierThisFrame = SetPedDensityMultiplierThisFrame
+local SetScenarioPedDensityMultiplierThisFrame = SetScenarioPedDensityMultiplierThisFrame
+local SetScenarioTypeEnabled = SetScenarioTypeEnabled
+local SetVehicleModelIsSuppressed = SetVehicleModelIsSuppressed
+local SetScenarioGroupEnabled = SetScenarioGroupEnabled
 
 function debugTxt(text)
     if not config.debug then return end
@@ -63,11 +63,11 @@ CreateThread(function()
     debugTxt('Applying density values...')
 
     while true do
-        local parkedDensity =       globalState.disableDensity and 0 or globalState.density['parked']
-        local vehicleDensity =      globalState.disableDensity and 0 or globalState.density['vehicle']
-        local multiplierDensity =   globalState.disableDensity and 0 or globalState.density['multiplier']
-        local pedsDensity =         globalState.disableDensity and 0 or globalState.density['peds']
-        local scenarioDensity =     globalState.disableDensity and 0 or globalState.density['scenario']
+        local parkedDensity = globalState.disableDensity and 0 or globalState.density['parked']
+        local vehicleDensity = globalState.disableDensity and 0 or globalState.density['vehicle']
+        local multiplierDensity = globalState.disableDensity and 0 or globalState.density['multiplier']
+        local pedsDensity = globalState.disableDensity and 0 or globalState.density['peds']
+        local scenarioDensity = globalState.disableDensity and 0 or globalState.density['scenario']
 
         SetParkedVehicleDensityMultiplierThisFrame(parkedDensity)
         SetVehicleDensityMultiplierThisFrame(vehicleDensity)
@@ -104,4 +104,5 @@ if config.blacklisted.enableBlacklist then
             Wait(10000)
         end
     end)
+
 end
